@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { filter } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -15,7 +16,7 @@ import { filter } from 'rxjs';
 export class UsuariosComponent implements OnInit {
   titulo = 'Usuarios'
   usuarios:any;
-  displayedColumns: string[] = ['code', 'user', 'rol', 'status', 'accion'];
+  displayedColumns: string[] = ['code', 'user', 'rol', 'password', 'status', 'accion'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -70,10 +71,14 @@ export class UsuariosComponent implements OnInit {
     this.api.deleteUser(code).subscribe({
       next:(res)=>{
         this.getAllUsers();
-        alert("Se ha eliminado el usuario")
+        Swal.fire(
+          'Exito','Se ha eliminado al usuario', 'success'
+        );
       },
       error:()=>{
-        alert("Error al eliminar al usuario")
+        Swal.fire(
+          'Error','No se ha eliminado al usuario', 'error'
+        );
       }
     })
 

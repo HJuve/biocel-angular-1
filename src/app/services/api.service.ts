@@ -22,8 +22,8 @@ export class ApiService {
     return this.http.get(direccion);
   }
 
-  putUser(data:any, code:number){
-    let direccion = `${this.url}/EditUser`;
+  putUser(code:any):Observable<any>{
+    let direccion = `${this.url}/EditUser/${code}`;
     return this.http.put(direccion,code)
   }
 
